@@ -1,0 +1,39 @@
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title><%=title%></title>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		</head>
+	<body>
+		<table cellpadding="11">
+		<tr>
+			<td>Name</td><td>: <input type="text" id="name" value="<%=data[0].name%>"></td>
+		 </tr>
+		<tr>
+			<td>Location</td><td>: <input type="text" id="location" value="<%=data[0].location%>"></td>
+			<input type='hidden' id="id" value="<%=data[0].id%>">
+		 </tr>
+		 <tr>
+			<td></td>
+			<td>
+				&nbsp; <input type="button" value="Save" onClick="edit()">
+			</td>
+		 </tr>
+		</table>
+		<script>
+			function edit(){
+				var url = '/team9/edit2';
+				console.log($('#id').val());
+				$.post(url,
+				{
+					id:$('#id').val(),
+					name:$('#name').val(),
+					location:$('#location').val()
+				},function(){
+					window.location.href = '/team9/employees';
+				});
+				//alert(<%=data[0].id%>);
+			}
+		</script>
+	</body>
+	</html>

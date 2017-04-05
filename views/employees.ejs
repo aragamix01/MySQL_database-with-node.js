@@ -1,0 +1,86 @@
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title><%=title%></title>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+			<style>
+				table,td,tr{
+					border-collapse:collapse;
+				}
+				td#del{
+					background-color:red;
+					color:white;
+				}
+			</style>
+		</head>
+	<body>
+		<h1>Team9</h1>
+		<div class="page_data">
+				<table cellpadding="11">
+				<tr>
+					<td>Name</td><td>: <input type="text" name="name" id="name"></td>
+				 </tr>
+				<tr>
+					<td>Location</td><td>: <input type="text" name="location" id="location"></td>
+				 </tr>
+				 <tr>
+					<td></td>
+					<td>
+						&nbsp; <input type="button" value="Add" onClick="insert()">
+					</td>
+				 </tr>
+				</table>
+		</div>
+		<div class="data_table">
+		<table border="1" cellpadding="7" cellspacing="7">
+			<tr>
+				<th width="50px">No</th>
+				<th>Name</th>
+				<th>location</th>
+				<th>delete</th>
+				<th>edit</th>
+			</tr>
+						   
+			<% if(data.length){ 
+							
+			 for(var i = 0;i < data.length;i++) { %>
+			 
+			<tr>
+				<td><%=(i+1)%></td>
+				<td><%=data[i].name%></td>
+				<td><%=data[i].location%></td>
+				<td id='del' onClick='del(<%=data[i].id%>);'>delete</td>
+				<td id='edit'><a href='/team9/edit/<%=data[i].id%>'>edit</a></td>
+			</tr>
+		<% }
+		
+		 }else{ %>
+			 <tr>
+				<td colspan="5">No Data</td>
+			 </tr>
+		<% } %>
+										  
+		</table>
+	</div>
+	<script>
+		function del(id){
+			var url = '/team9/del/'+id;
+		   $.post(url,function(res){
+				console.log(res);
+				window.location.reload();
+		   });
+		}
+		function insert(){
+		   var url = '/team9/employees';
+		   $.post(url,
+		   {
+				name: $('#name').val(),
+				location: $('#location').val()
+		   },function(res){
+				console.log(res);
+				window.location.reload();
+		   });
+		}
+	</script>
+	</body>
+	</html>
